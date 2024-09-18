@@ -1,0 +1,129 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: relative;
+  background-color: #000; /* 整个页面背景为黑色 */
+}
+
+.video-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  border: 5px solid white; /* 视频区域白色边框 */
+  width: 100%;
+  height: 40vh;
+  margin: 120px auto 0 auto; /* 视频区域向上移动 */
+}
+
+video {
+  width: 100%; /* 填满整个 video-wrapper */
+  height: 100%;
+  object-fit: cover; /* 保持视频宽高比 */
+}
+
+.interaction-right {
+  position: absolute;
+  right: 10px;
+  bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatar-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  border: 2px solid #fff;
+}
+
+.follow-btn {
+  position: absolute;
+  bottom: -10px;
+  width: 30px;
+  height: 30px;
+  background-color: #c51f1f;
+  color: white;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 25px;
+  font-size: 24px;
+  border: 2px solid #fff;
+}
+
+.action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.action-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 5px;
+}
+
+.action-text {
+  color: #fff;
+  font-size: 16px;
+}
+
+.bottom-info {
+  position: absolute;
+  bottom: 100px;
+  left: 10px;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  padding-bottom: 10px;
+}
+
+/* 全屏按钮样式 */
+.fullscreen-btn {
+  position: absolute;
+  bottom: 280px; /* 调整按钮的位置，靠近视频底部 */
+  left: 50%;
+  transform: translateX(-50%); /* 使按钮水平居中 */
+  z-index: 1000; /* 确保按钮在其他元素之上显示 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.6); /* 半透明黑色背景 */
+  color: white; /* 文字颜色白色 */
+  padding: 5px 15px; /* 调整按钮内部的边距 */
+  border-radius: 20px; /* 圆角按钮 */
+  font-size: 14px; /* 字体大小 */
+  border: 1px solid rgba(255, 255, 255, 0.8); /* 白色边框 */
+}
+
+/* 退出全屏按钮样式 */
+.exit-fullscreen-btn {
+  position: absolute; /* 绝对定位 */
+  top: 20px; /* 距离页面顶部20px */
+  right: 20px; /* 距离页面右侧20px */
+  background-color: rgba(0, 0, 0, 0.7); /* 半透明背景 */
+  color: white; /* 白色文字 */
+  padding: 10px; /* 内边距 */
+  border-radius: 10px; /* 按钮圆角 */
+  font-size: 14px; /* 字体大小 */
+  z-index: 1000; /* 确保按钮显示在上层 */
+  border: 1px solid rgba(255, 255, 255, 0.8); /* 白色边框 */
+}
+
+.fullscreen-icon {
+  width: 18px; /* 调整图标大小 */
+  height: 18px;
+  margin-right: 5px; /* 图标和文字之间的间距 */
+}
