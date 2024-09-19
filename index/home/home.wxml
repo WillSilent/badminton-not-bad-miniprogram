@@ -1,9 +1,13 @@
-<view class="container">
+<view class="container"
+  bindtouchstart="touchStart"
+  bindtouchmove="touchMove"
+  bindtouchend="touchEnd">
+  
   <!-- 视频部分 -->
   <view class="video-wrapper">
     <video
       id="videoPlayer"
-      src="{{videos[currentIndex].url}}"
+      src="{{videoUrl}}"
       autoplay
       controls
       loop="{{false}}"
@@ -52,8 +56,12 @@
     <image src="/image/fullscreen_icon.png" class="fullscreen-icon"/> 全屏观看
   </view>
   
-  <!-- 退出全屏按钮（仅在全屏模式下显示） -->
-  <view wx:if="{{isFullScreen}}" class="exit-fullscreen-btn" bindtap="exitFullScreen">
-    <text>退出全屏</text>
+ <!-- 退出全屏按钮（仅在全屏模式下显示） -->
+ <view wx:if="{{isFullScreen}}">
+    <view class="exit-fullscreen-btn" bindtap="exitFullScreen">
+      <image src="/image/icon_fullscreen_HL.png" class="exit-fullscreen-icon" />
+      <text>退出全屏</text>
+    </view>
   </view>
-</view>
+  
+</view> <!-- 确保此处关闭了 container 的 view -->

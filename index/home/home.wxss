@@ -108,22 +108,29 @@ video {
   border: 1px solid rgba(255, 255, 255, 0.8); /* 白色边框 */
 }
 
-/* 退出全屏按钮样式 */
-.exit-fullscreen-btn {
-  position: absolute; /* 绝对定位 */
-  top: 20px; /* 距离页面顶部20px */
-  right: 20px; /* 距离页面右侧20px */
-  background-color: rgba(0, 0, 0, 0.7); /* 半透明背景 */
-  color: white; /* 白色文字 */
-  padding: 10px; /* 内边距 */
-  border-radius: 10px; /* 按钮圆角 */
-  font-size: 14px; /* 字体大小 */
-  z-index: 1000; /* 确保按钮显示在上层 */
-  border: 1px solid rgba(255, 255, 255, 0.8); /* 白色边框 */
-}
-
 .fullscreen-icon {
   width: 18px; /* 调整图标大小 */
   height: 18px;
   margin-right: 5px; /* 图标和文字之间的间距 */
+}
+
+.exit-fullscreen-btn {
+  position: fixed; /* 固定在屏幕上的位置 */
+  top: 20px; /* 距离屏幕顶部 20px */
+  right: 20px; /* 距离屏幕右侧 20px */
+  background-color: rgba(0, 0, 0, 0.7); /* 半透明背景 */
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 14px;
+  z-index: 1000; /* 确保按钮显示在上层 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.exit-fullscreen-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
 }
