@@ -24,20 +24,27 @@
       <image class="user-avatar" src="{{videos[currentIndex].userAvatar}}" class="avatar"></image>
       <view class="follow-btn" bindtap="onFollow">{{isFollowed ? '✔' : '+'}}</view>
     </view>
-    <view class="action-btn like" bindtap="onLike">
-      <image src="/image/white_like_icon.png" class="action-icon"/> 
+
+    <!-- 点赞按钮 -->
+    <view class="action-btn like" bindtap="onLike" data-ignore-touch="true">
+      <image src="{{videos[currentIndex].isLiked ? '/image/icon_like_HL.png' : '/image/icon_like.png'}}" class="action-icon"/>
       <text class="action-text">{{videos[currentIndex].likes}}</text>
     </view>
+
     <view class="action-btn comment" bindtap="onComment">
-      <image src="/image/white_comment_icon.png" class="action-icon"/> 
+      <image src="/image/icon_comment.png" class="action-icon"/> 
       <text class="action-text">{{videos[currentIndex].comments}}</text>
     </view>
-    <view class="action-btn collect" bindtap="onCollect">
-      <image src="/image/white_collect_icon.png" class="action-icon"/> 
+
+    <!-- 收藏按钮 -->
+    <view class="action-btn collect" bindtap="onCollect" data-ignore-touch="true">
+      <image src="/image/icon_collect.png" class="action-icon"/>
       <text class="action-text">{{videos[currentIndex].collects}}</text>
     </view>
-    <view class="action-btn share" bindtap="onShare">
-      <image src="/image/white_share_icon.png" class="action-icon"/> 
+
+    <!-- 分享按钮 -->
+    <view class="action-btn share" bindtap="onShare" data-ignore-touch="true">
+      <image src="/image/icon_share.png" class="action-icon"/>
       <text class="action-text">{{videos[currentIndex].shares}}</text>
     </view>
   </view>
