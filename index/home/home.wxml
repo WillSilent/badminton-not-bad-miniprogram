@@ -2,7 +2,7 @@
   bindtouchstart="touchStart"
   bindtouchmove="touchMove"
   bindtouchend="touchEnd">
-  
+
   <!-- 视频部分 -->
   <view class="video-wrapper">
     <video
@@ -15,60 +15,77 @@
       show-center-play-btn
       object-fit="cover"
       bindfullscreenchange="onFullScreen"
+      data-control="true"
+      bindtouchstart="touchStart"
+      bindtouchmove="touchMove"
+      bindtouchend="touchEnd"
     ></video>
   </view>
 
   <!-- 右侧互动按钮 -->
   <view class="interaction-right">
-    <view class="avatar-wrapper">
-      <image class="user-avatar" src="{{videos[currentIndex].userAvatar}}" class="avatar"></image>
-      <view class="follow-btn" bindtap="onFollow">{{isFollowed ? '✔' : '+'}}</view>
+    <!-- 头像和关注按钮 -->
+    <view class="avatar-wrapper" data-control="true">
+      <image
+        src="{{videos[currentIndex].userAvatar}}"
+        class="avatar"
+        data-control="true"
+      ></image>
+      <view class="follow-btn" bindtap="onFollow" data-control="true">{{isFollowed ? '✔' : '+'}}</view>
     </view>
 
     <!-- 点赞按钮 -->
-    <view class="action-btn like" bindtap="onLike" data-ignore-touch="true">
-      <image src="{{videos[currentIndex].isLiked ? '/image/icon_like_HL.png' : '/image/icon_like.png'}}" class="action-icon"/>
-      <text class="action-text">{{videos[currentIndex].likes}}</text>
+    <view class="action-btn like" bindtap="onLike" data-control="true">
+      <image
+        src="{{videos[currentIndex].isLiked ? '/image/icon_like_HL.png' : '/image/icon_like.png'}}"
+        class="action-icon"
+        data-control="true"
+      />
+      <text class="action-text" data-control="true">{{videos[currentIndex].likes}}</text>
     </view>
 
-    <view class="action-btn comment" bindtap="onComment">
-      <image src="/image/icon_comment.png" class="action-icon"/> 
-      <text class="action-text">{{videos[currentIndex].comments}}</text>
+    <!-- 评论按钮 -->
+    <view class="action-btn comment" bindtap="onComment" data-control="true">
+      <image src="/image/icon_comment.png" class="action-icon" data-control="true" />
+      <text class="action-text" data-control="true">{{videos[currentIndex].comments}}</text>
     </view>
 
     <!-- 收藏按钮 -->
-    <view class="action-btn collect" bindtap="onCollect" data-ignore-touch="true">
-      <image src="/image/icon_collect.png" class="action-icon"/>
-      <text class="action-text">{{videos[currentIndex].collects}}</text>
+    <view class="action-btn collect" bindtap="onCollect" data-control="true">
+      <image
+        src="{{videos[currentIndex].isCollected ? '/image/icon_collect_HL.png' : '/image/icon_collect.png'}}"
+        class="action-icon"
+        data-control="true"
+      />
+      <text class="action-text" data-control="true">{{videos[currentIndex].collects}}</text>
     </view>
 
     <!-- 分享按钮 -->
-    <view class="action-btn share" bindtap="onShare" data-ignore-touch="true">
-      <image src="/image/icon_share.png" class="action-icon"/>
-      <text class="action-text">{{videos[currentIndex].shares}}</text>
+    <view class="action-btn share" bindtap="onShare" data-control="true">
+      <image src="/image/icon_share.png" class="action-icon" data-control="true" />
+      <text class="action-text" data-control="true">{{videos[currentIndex].shares}}</text>
     </view>
   </view>
 
   <!-- 底部信息部分 -->
-  <view class="bottom-info">
+  <view class="bottom-info" data-control="true">
     <view class="left-info">
-      <text class="user-name">{{videos[currentIndex].userName}}</text>
-      <text class="location">{{videos[currentIndex].location}}</text>
+      <text class="user-name" data-control="true">{{videos[currentIndex].userName}}</text>
+      <text class="location" data-control="true">{{videos[currentIndex].location}}</text>
     </view>
-    <view class="video-title">{{videos[currentIndex].title}}</view>
+    <view class="video-title" data-control="true">{{videos[currentIndex].title}}</view>
   </view>
 
   <!-- 全屏按钮 -->
-  <view class="fullscreen-btn" bindtap="onFullScreen">
-    <image src="/image/fullscreen_icon.png" class="fullscreen-icon"/> 全屏观看
+  <view class="fullscreen-btn" bindtap="onFullScreen" data-control="true">
+    <image src="/image/fullscreen_icon.png" class="fullscreen-icon" data-control="true" /> 全屏观看
   </view>
-  
- <!-- 退出全屏按钮（仅在全屏模式下显示） -->
- <view wx:if="{{isFullScreen}}">
-    <view class="exit-fullscreen-btn" bindtap="exitFullScreen">
-      <image src="/image/icon_fullscreen_HL.png" class="exit-fullscreen-icon" />
-      <text>退出全屏</text>
+
+  <!-- 退出全屏按钮（仅在全屏模式下显示） -->
+  <view wx:if="{{isFullScreen}}">
+    <view class="exit-fullscreen-btn" bindtap="exitFullScreen" data-control="true">
+      <image src="/image/icon_fullscreen_HL.png" class="exit-fullscreen-icon" data-control="true" />
+      <text data-control="true">退出全屏</text>
     </view>
   </view>
-  
-</view> <!-- 确保此处关闭了 container 的 view -->
+</view>
