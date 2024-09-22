@@ -182,7 +182,8 @@ Page({
 
   // 点赞功能
   onLike: function () {
-    let currentVideo = this.data.videos[this.data.currentIndex];
+    let currentIndex = this.data.currentIndex;
+    let currentVideo = this.data.videos[currentIndex];
     let isLiked = currentVideo.isLiked || false;
 
     // 切换点赞状态，并更新点赞数量
@@ -191,10 +192,12 @@ Page({
       ? currentVideo.likes - 1
       : currentVideo.likes + 1;
 
-    // 更新数据
-    this.setData({
-      videos: this.data.videos,
-    });
+    // 更新数据，精确更新需要改变的字段
+    let updateData = {};
+    updateData['videos[' + currentIndex + '].isLiked'] = currentVideo.isLiked;
+    updateData['videos[' + currentIndex + '].likes'] = currentVideo.likes;
+
+    this.setData(updateData);
   },
 
   // 关注功能
@@ -203,7 +206,6 @@ Page({
     this.setData({
       isFollowed: isFollowed,
     });
-    this.data.videos[this.data.currentIndex].isFollowed = isFollowed;
   },
 
   // 评论功能
@@ -216,7 +218,8 @@ Page({
 
   // 收藏功能
   onCollect: function () {
-    let currentVideo = this.data.videos[this.data.currentIndex];
+    let currentIndex = this.data.currentIndex;
+    let currentVideo = this.data.videos[currentIndex];
     let isCollected = currentVideo.isCollected || false;
 
     // 切换收藏状态，并更新收藏数量
@@ -225,10 +228,12 @@ Page({
       ? currentVideo.collects - 1
       : currentVideo.collects + 1;
 
-    // 更新数据
-    this.setData({
-      videos: this.data.videos,
-    });
+    // 更新数据，精确更新需要改变的字段
+    let updateData = {};
+    updateData['videos[' + currentIndex + '].isCollected'] = currentVideo.isCollected;
+    updateData['videos[' + currentIndex + '].collects'] = currentVideo.collects;
+
+    this.setData(updateData);
   },
 
   // 转发功能
@@ -239,31 +244,27 @@ Page({
     });
   },
 
-  // 全屏播放功能
+  // 自定义全屏播放功能
   onFullScreen: function () {
     const videoContext = wx.createVideoContext('videoPlayer');
     videoContext.requestFullScreen({ direction: 90 }); // 横屏全屏播放
+    this.setData({
+      isFullScreen: true,
+    });
   },
 
-  // 监听全屏事件
-  bindfullscreenchange(e) {
+  // 监听全屏变化事件
+  onFullScreenChange: function (e) {
     const isFullScreen = e.detail.fullScreen;
     this.setData({
       isFullScreen: isFullScreen,
     });
-
-    if (!isFullScreen) {
-      wx.showToast({
-        title: '已退出全屏',
-        icon: 'none',
-      });
-    }
   },
 
   // 退出全屏功能
   exitFullScreen: function () {
     const videoContext = wx.createVideoContext('videoPlayer');
-    videoContext.exitFullScreen(); // 调用视频上下文退出全屏播放
+    videoContext.exitFullScreen();
     this.setData({
       isFullScreen: false,
     });

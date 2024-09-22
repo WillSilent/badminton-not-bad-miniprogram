@@ -9,12 +9,11 @@
       id="videoPlayer"
       src="{{videoUrl}}"
       autoplay
-      controls
       loop="{{false}}"
       bindended="onVideoEnded"
       show-center-play-btn
       object-fit="cover"
-      bindfullscreenchange="onFullScreen"
+      bindfullscreenchange="onFullScreenChange"
       data-control="true"
       bindtouchstart="touchStart"
       bindtouchmove="touchMove"
@@ -76,7 +75,7 @@
     <view class="video-title" data-control="true">{{videos[currentIndex].title}}</view>
   </view>
 
-  <!-- 全屏按钮 -->
+  <!-- 自定义全屏按钮 -->
   <view class="fullscreen-btn" bindtap="onFullScreen" data-control="true">
     <image src="/image/fullscreen_icon.png" class="fullscreen-icon" data-control="true" /> 全屏观看
   </view>
