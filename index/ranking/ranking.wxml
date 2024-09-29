@@ -1,2 +1,15 @@
-<view class="intro">排名</view>
-<custom-tab-bar></custom-tab-bar>
+<view class="ranking-table">
+  <view class="table-header">
+    <view class="table-cell">排名</view>
+    <view class="table-cell">ID</view>
+    <view class="table-cell">积分</view>
+  </view>
+
+  <block wx:for="{{rankings}}" wx:key="id">
+    <view class="table-row">
+      <view class="table-cell">{{index + 1}}</view>
+      <view class="table-cell">{{item.id}}</view>
+      <view class="table-cell">{{item.score}}</view>
+    </view>
+  </block>
+</view>

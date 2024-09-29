@@ -1,7 +1,9 @@
+<!-- home.wxml -->
 <view class="container"
   bindtouchstart="touchStart"
   bindtouchmove="touchMove"
-  bindtouchend="touchEnd">
+  bindtouchend="touchEnd"
+  catchtouchmove="preventDefault">
 
   <!-- 视频部分 -->
   <view class="video-wrapper">
@@ -10,19 +12,15 @@
       src="{{videoUrl}}"
       autoplay
       loop="{{false}}"
-      bindended="onVideoEnded"
       show-center-play-btn
       object-fit="cover"
       bindfullscreenchange="onFullScreenChange"
       data-control="true"
-      bindtouchstart="touchStart"
-      bindtouchmove="touchMove"
-      bindtouchend="touchEnd"
     ></video>
   </view>
 
   <!-- 右侧互动按钮 -->
-  <view class="interaction-right">
+  <view class="interaction-right" data-control="true">
     <!-- 头像和关注按钮 -->
     <view class="avatar-wrapper" data-control="true">
       <image
@@ -77,14 +75,69 @@
 
   <!-- 自定义全屏按钮 -->
   <view class="fullscreen-btn" bindtap="onFullScreen" data-control="true">
-    <image src="/image/fullscreen_icon.png" class="fullscreen-icon" data-control="true" /> 全屏观看
+    <image src="/image/icon_fullscreen.png" class="fullscreen-icon" data-control="true" /> 全屏观看
   </view>
 
   <!-- 退出全屏按钮（仅在全屏模式下显示） -->
   <view wx:if="{{isFullScreen}}">
     <view class="exit-fullscreen-btn" bindtap="exitFullScreen" data-control="true">
-      <image src="/image/icon_fullscreen_HL.png" class="exit-fullscreen-icon" data-control="true" />
+      <image src="/image/icon_fullscreen.png" class="exit-fullscreen-icon" data-control="true" />
       <text data-control="true">退出全屏</text>
     </view>
   </view>
+
+  <!-- 评论区域 -->
+<view wx:if="{{isCommentModalVisible}}">
+  <!-- 背景遮罩层 -->
+  <view class="modal-overlay" bindtap="closeCommentModal" data-control="true"></view>
+
+  <!-- 评论区域 -->
+  <view class="comment-area">
+    <!-- 评论区域头部，包含标题和关闭按钮 -->
+    <view class="comment-header">
+      <text class="comment-title">评论区</text>
+      <button class="close-button" bindtap="closeCommentModal" data-control="true">关闭</button>
+    </view>
+
+    <!-- 输入框 -->
+    <view class="comment-input-wrapper" data-control="true">
+       <input
+        class="comment-input"
+        placeholder="说点什么吧..."
+        value="{{commentInputValue}}"
+        bindinput="onCommentInput"
+        maxlength="100"
+        data-control="true"
+       />
+       <button class="send-button" bindtap="sendComment" data-control="true">发送</button>
+    </view>
+
+    <!-- 评论内容 -->
+    <view class="comment-content">
+      <scroll-view scroll-y="true" class="comments-scroll" data-control="true">
+        <!-- 评论列表 -->
+        <block wx:for="{{comments}}" wx:key="id">
+          <view class="comment-item">
+            <text class="comment-author">{{item.author}}:</text>
+            <text class="comment-content">{{item.content}}</text>
+            <text class="comment-timestamp">{{item.timestamp}}</text>
+            <button class="reply-button" bindtap="replyComment" data-comment-id="{{item.id}}" data-control="true">回复</button>
+            <!-- 回复列表 -->
+            <view wx:if="{{item.replies && item.replies.length > 0}}" class="replies">
+              <block wx:for="{{item.replies}}" wx:key="id">
+                <view class="reply-item">
+                  <text class="reply-author">{{item.author}}:</text>
+                  <text class="reply-content">{{item.content}}</text>
+                  <text class="reply-timestamp">{{item.timestamp}}</text>
+                  <button class="reply-button" bindtap="replyComment" data-comment-id="{{item.id}}" data-control="true">回复</button>
+                </view>
+              </block>
+            </view>
+          </view>
+        </block>
+      </scroll-view>
+    </view>
+    
+  </view>
+</view>
 </view>

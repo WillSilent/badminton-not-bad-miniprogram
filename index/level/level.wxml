@@ -1,0 +1,13 @@
+<view class="level-page">
+  <view class="level-menu">
+    <button bindtap="goToRankingPage" data-level="1">第1级</button>
+    <button bindtap="goToRankingPage" data-level="2">第2级</button>
+    <button bindtap="goToRankingPage" data-level="3">第3级</button>
+    <button bindtap="goToRankingPage" data-level="4">第4级</button>
+    <button bindtap="goToRankingPage" data-level="5">第5级</button>
+    <button bindtap="goToRankingPage" data-level="6">第6级</button>
+    <button bindtap="goToRankingPage" data-level="7">第7级</button>
+    <button bindtap="goToRankingPage" data-level="8">第8级</button>
+    <button bindtap="goToRankingPage" data-level="9">第9级</button>
+  </view>
+</view>

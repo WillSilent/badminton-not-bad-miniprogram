@@ -1,3 +1,4 @@
+/* home.wxss */
 .container {
   display: flex;
   flex-direction: column;
@@ -6,6 +7,7 @@
   background-color: #000; /* 整个页面背景为黑色 */
 }
 
+/* 视频区域样式 */
 .video-wrapper {
   display: flex;
   justify-content: center;
@@ -13,8 +15,8 @@
   background-color: black;
   border: 5px solid white; /* 视频区域白色边框 */
   width: 100%;
-  height: 40vh;
-  margin: 120px auto 0 auto; /* 视频区域向上移动 */
+  height: 60vh; /* 视频高度 */
+  margin: 0 auto; /* 居中 */
 }
 
 video {
@@ -23,10 +25,11 @@ video {
   object-fit: cover; /* 保持视频宽高比 */
 }
 
+/* 互动按钮样式 */
 .interaction-right {
   position: absolute;
   right: 10px;
-  bottom: 80px;
+  bottom: 25vh; /* 根据评论区的位置调整 */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -80,9 +83,10 @@ video {
   font-size: 16px;
 }
 
+/* 底部信息样式 */
 .bottom-info {
   position: absolute;
-  bottom: 100px;
+  bottom: 23vh; /* 根据评论区的位置调整 */
   left: 10px;
   display: flex;
   flex-direction: column;
@@ -93,37 +97,37 @@ video {
 /* 全屏按钮样式 */
 .fullscreen-btn {
   position: absolute;
-  bottom: 280px; /* 调整按钮的位置，靠近视频底部 */
+  bottom: 34vh; /* 根据评论区的位置调整 */
   left: 50%;
-  transform: translateX(-50%); /* 使按钮水平居中 */
-  z-index: 1000; /* 确保按钮在其他元素之上显示 */
+  transform: translateX(-50%);
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.6); /* 半透明黑色背景 */
-  color: white; /* 文字颜色白色 */
-  padding: 5px 15px; /* 调整按钮内部的边距 */
-  border-radius: 20px; /* 圆角按钮 */
-  font-size: 14px; /* 字体大小 */
-  border: 1px solid rgba(255, 255, 255, 0.8); /* 白色边框 */
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
 .fullscreen-icon {
-  width: 18px; /* 调整图标大小 */
+  width: 18px;
   height: 18px;
-  margin-right: 5px; /* 图标和文字之间的间距 */
+  margin-right: 5px;
 }
 
 .exit-fullscreen-btn {
-  position: fixed; /* 固定在屏幕上的位置 */
-  top: 20px; /* 距离屏幕顶部 20px */
-  right: 20px; /* 距离屏幕右侧 20px */
-  background-color: rgba(0, 0, 0, 0.7); /* 半透明背景 */
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: rgba(0, 0, 0, 0.7);
   color: white;
   padding: 10px;
   border-radius: 10px;
   font-size: 14px;
-  z-index: 1000; /* 确保按钮显示在上层 */
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -133,4 +137,136 @@ video {
   width: 20px;
   height: 20px;
   margin-right: 5px;
+}
+
+/* 背景遮罩层样式 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+}
+
+/* 评论区域样式 */
+.comment-area {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 80vh; /* 调整评论区高度 */
+  background-color: #fff;
+  z-index: 3000;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 评论区域头部样式 */
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.comment-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.close-button {
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
+  line-height: 24px;
+  padding: 0;
+}
+
+/* 评论内容样式 */
+.comment-content {
+  flex: 1;
+  overflow: hidden;
+}
+
+/* 评论列表样式 */
+.comments-scroll {
+  height: 100%;
+  padding: 10px;
+}
+
+.comment-item {
+  margin-bottom: 10px;
+}
+
+.comment-author {
+  font-weight: bold;
+}
+
+.comment-content {
+  height: calc(100% - 50px); /* 留出空间给输入框 */
+  overflow-y: auto; /* 确保可滚动 */
+}
+
+.comment-timestamp {
+  font-size: 12px;
+  color: #999;
+}
+
+.reply-button {
+  font-size: 14px;
+  color: #007aff;
+}
+
+.replies {
+  margin-left: 20px;
+  border-left: 1px solid #eee;
+  padding-left: 10px;
+}
+
+.reply-item {
+  margin-bottom: 5px;
+}
+
+.reply-author {
+  font-weight: bold;
+}
+
+.reply-content {
+  display: block;
+  margin: 5px 0;
+}
+
+.reply-timestamp {
+  font-size: 12px;
+  color: #999;
+}
+
+/* 输入框样式 */
+.comment-input-wrapper {
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  margin-top: 0vh; /* 将输入框推向底部 */
+  border-top: 1px solid #eee;
+  background-color: #fff;
+}
+
+.comment-input {
+  flex: 1;
+  height: 40px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+}
+
+.send-button {
+  margin-left: 10px;
+  background-color: #007aff;
+  color: #fff;
+  padding: 0 15px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 20px;
 }

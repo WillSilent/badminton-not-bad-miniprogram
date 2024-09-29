@@ -16,7 +16,7 @@ Component({
       text: "找队友"
     },
     {
-        pagePath: "/index/ranking/ranking",
+        pagePath: "/index/rankingType/rankingType",
         iconPath: "/image/icon_ranking.png",
         selectedIconPath: "/image/icon_ranking_HL.png",
         text: "排名"

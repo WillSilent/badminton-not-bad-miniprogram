@@ -1,4 +1,42 @@
-.intro {
-  margin: 30px;
-  text-align: center;
+/* 表格容器 */
+.ranking-table {
+  width: 100%;
+  margin: 10px 0;
+  border-collapse: collapse;  /* 合并单元格边框 */
+}
+
+/* 表格头部 */
+.table-header {
+  display: flex;
+  font-weight: bold;
+  background-color: #f0f0f0; /* 表头背景颜色 */
+  border: 1px solid #d0d0d0; /* 表头边框 */
+}
+
+.table-header .table-cell {
+  padding: 12px; /* 加大内间距 */
+  border: 1px solid #d0d0d0; /* 单元格边框 */
+  text-align: center; /* 文字居中 */
+  flex: 1; /* 让每一列等宽 */
+}
+
+/* 表格行 */
+.table-row {
+  display: flex;
+}
+
+.table-row .table-cell {
+  padding: 12px; /* 加大内间距，避免内容挤在一起 */
+  border: 1px solid #d0d0d0; /* 为每个单元格添加边框 */
+  text-align: center; /* 文本居中 */
+  flex: 1; /* 让每一列等宽 */
+}
+
+/* 为表格行添加交替背景色 */
+.table-row:nth-child(even) {
+  background-color: #f9f9f9; /* 偶数行背景颜色 */
+}
+
+.table-row:nth-child(odd) {
+  background-color: #ffffff; /* 奇数行背景颜色 */
 }

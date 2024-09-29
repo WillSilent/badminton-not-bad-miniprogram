@@ -1,17 +1,24 @@
+// home.js
 Page({
   data: {
     videos: [], // 视频列表
     currentIndex: 0, // 当前播放的视频索引
     videoUrl: '', // 当前视频的 URL
-    startY: 0, // 开始滑动的 Y 坐标
-    endY: 0, // 结束滑动的 Y 坐标
-    slideThreshold: 60, // 设置滑动阈值
+    startY: 0, // 开始触摸的 Y 坐标
+    endY: 0, // 结束触摸的 Y 坐标
+    startX: 0, // 开始触摸的 X 坐标
+    endX: 0, // 结束触摸的 X 坐标
+    slideThreshold: 50, // 滑动阈值
     clickThreshold: 10, // 用于区分点击和滑动的最小阈值
-    touchStartTime: 0, // 记录手势开始时间
-    isTouching: false, // 记录是否在滑动过程中
+    touchStartTime: 0, // 触摸开始时间
+    isTouching: false, // 是否在触摸中
     isFullScreen: false, // 是否全屏状态
     isFollowed: false, // 是否已关注
     isCollected: false, // 是否已收藏
+    isCommentModalVisible: false, // 评论弹窗是否显示
+    commentInputValue: '', // 评论输入框的内容
+    comments: [], // 评论列表
+    replyToCommentId: null, // 要回复的评论ID
   },
 
   onLoad: function () {
@@ -49,7 +56,13 @@ Page({
       ],
       videoUrl:
         'https://badminton-1329604984.cos.ap-hongkong.myqcloud.com/v0200fg10000crl8sqfog65r5e5l5rn0.MP4',
+      comments: [], // 初始化评论列表
     });
+  },
+
+  // 阻止默认的触摸移动事件
+  preventDefault: function (e) {
+    return false;
   },
 
   // 辅助函数，判断触摸事件是否发生在控件上
@@ -103,6 +116,14 @@ Page({
       return;
     }
 
+    // 如果在 touchMove 中未更新 endY，则在 touchEnd 中获取
+    if (this.data.endY === 0) {
+      this.setData({
+        endY: e.changedTouches[0].pageY,
+        endX: e.changedTouches[0].pageX,
+      });
+    }
+
     const deltaY = this.data.endY - this.data.startY;
     const deltaX = this.data.endX - this.data.startX;
     const threshold = this.data.slideThreshold;
@@ -125,10 +146,12 @@ Page({
       Math.abs(deltaY) > threshold &&
       Math.abs(deltaY) > Math.abs(deltaX)
     ) {
-      if (deltaY > 0) {
-        this.prevVideo();
-      } else if (deltaY < 0) {
+      if (deltaY < 0) {
+        // 手指上滑，播放下一个视频
         this.nextVideo();
+      } else if (deltaY > 0) {
+        // 手指下滑，播放上一个视频
+        this.prevVideo();
       }
     }
 
@@ -152,6 +175,8 @@ Page({
         currentIndex: nextIndex,
         videoUrl: this.data.videos[nextIndex].url,
         isFollowed: false,
+        comments: [], // 切换视频时清空评论列表或加载新评论
+        isCommentModalVisible: false, // 切换视频时关闭评论区
       });
     } else {
       wx.showToast({
@@ -171,6 +196,8 @@ Page({
         currentIndex: prevIndex,
         videoUrl: this.data.videos[prevIndex].url,
         isFollowed: false,
+        comments: [], // 切换视频时清空评论列表或加载新评论
+        isCommentModalVisible: false, // 切换视频时关闭评论区
       });
     } else {
       wx.showToast({
@@ -208,11 +235,102 @@ Page({
     });
   },
 
-  // 评论功能
+  // 打开评论弹窗
   onComment: function () {
-    wx.showToast({
-      title: '评论功能开发中',
-      icon: 'none',
+    this.setData({
+      isCommentModalVisible: true,
+      commentInputValue: '',
+      replyToCommentId: null,
+    });
+  },
+
+  // 关闭评论弹窗
+  closeCommentModal: function () {
+    this.setData({
+      isCommentModalVisible: false,
+      commentInputValue: '',
+      replyToCommentId: null,
+    });
+  },
+
+  // 输入评论内容
+  onCommentInput: function (e) {
+    this.setData({
+      commentInputValue: e.detail.value,
+    });
+  },
+
+  // 发送评论
+  sendComment: function () {
+    console.log('发送评论方法被调用');
+    let content = this.data.commentInputValue.trim();
+    if (content.length === 0) {
+      wx.showToast({
+        title: '评论内容不能为空',
+        icon: 'none',
+      });
+      return;
+    }
+    if (content.length > 100) {
+      wx.showToast({
+        title: '评论内容不能超过100字',
+        icon: 'none',
+      });
+      return;
+    }
+    console.log(newComment);
+    let newComment = {
+      id: Date.now(),
+      content: content,
+      author: '当前用户',
+      timestamp: new Date().toLocaleString(),
+      replies: [],
+    };
+    console.log('当前评论:', this.data.comments);
+
+    // 判断是评论还是回复
+    if (this.data.replyToCommentId) {
+      // 回复评论
+      let comments = this.data.comments;
+      this.addReply(comments, this.data.replyToCommentId, newComment);
+      this.setData({
+        comments: comments,
+      });
+    } else {
+      // 添加新评论
+      this.setData({
+        comments: [newComment, ...this.data.comments],
+      });
+    }
+
+    // 清空输入框
+    this.setData({
+      commentInputValue: '',
+      replyToCommentId: null,
+    });
+  },
+
+  // 递归查找并添加回复
+  addReply: function (comments, commentId, reply) {
+    for (let comment of comments) {
+      if (comment.id === commentId) {
+        comment.replies = comment.replies || [];
+        comment.replies.push(reply);
+        return true;
+      } else if (comment.replies && comment.replies.length > 0) {
+        let found = this.addReply(comment.replies, commentId, reply);
+        if (found) return true;
+      }
+    }
+    return false;
+  },
+
+  // 回复评论
+  replyComment: function (e) {
+    let commentId = e.currentTarget.dataset.commentId;
+    this.setData({
+      replyToCommentId: commentId,
+      commentInputValue: '',
     });
   },
 
@@ -230,7 +348,8 @@ Page({
 
     // 更新数据，精确更新需要改变的字段
     let updateData = {};
-    updateData['videos[' + currentIndex + '].isCollected'] = currentVideo.isCollected;
+    updateData['videos[' + currentIndex + '].isCollected'] =
+      currentVideo.isCollected;
     updateData['videos[' + currentIndex + '].collects'] = currentVideo.collects;
 
     this.setData(updateData);

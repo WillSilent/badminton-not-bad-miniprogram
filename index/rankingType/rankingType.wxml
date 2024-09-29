@@ -1,0 +1,9 @@
+<view class="type-page">
+  <view class="type-menu">
+    <button bindtap="goToLevelPage" data-type="singleWomen">女单</button>
+    <button bindtap="goToLevelPage" data-type="singleMen">男单</button>
+    <button bindtap="goToLevelPage" data-type="doubleWomen">女双</button>
+    <button bindtap="goToLevelPage" data-type="doubleMen">男双</button>
+    <button bindtap="goToLevelPage" data-type="mixedDouble">混双</button>
+  </view>
+</view>

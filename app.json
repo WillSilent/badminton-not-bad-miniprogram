@@ -2,9 +2,11 @@
   "pages": [
     "index/home/home",
     "index/findpartner/findpartner",
-    "index/ranking/ranking",
+    "index/rankingType/rankingType",
     "index/cooperation/cooperation",
-    "index/profile/profile"
+    "index/profile/profile",
+    "index/level/level", 
+    "index/ranking/ranking"
   ],
   "tabBar": {
     "custom": true,
@@ -26,7 +28,7 @@
         "text": "找队友"
       },
       {
-        "pagePath": "index/ranking/ranking",
+        "pagePath": "index/rankingType/rankingType",
         "iconPath": "image/icon_ranking.png",
         "selectedIconPath": "image/icon_ranking_HL.png",
         "text": "排名"

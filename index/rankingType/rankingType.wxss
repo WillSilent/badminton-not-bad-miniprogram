@@ -1,0 +1,9 @@
+.intro {
+  margin: 30px;
+  text-align: center;
+}
+.tab-menu {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
