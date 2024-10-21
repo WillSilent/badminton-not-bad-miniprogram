@@ -1,2 +1,25 @@
 <view class="intro">场地合作</view>
+
+<view class="container">
+  <view class="header">
+    <text class="date-text">{{selectedDate}}</text>
+  </view>
+
+  <block wx:for="{{courts}}" wx:key="id">
+    <view class="court-container">
+      <view class="court-name">
+        <text>{{item.name}}</text>
+        <text class="location">{{item.location}}</text>
+      </view>
+      <view class="time-slots">
+        <block wx:for="{{item.timeSlots}}" wx:key="time">
+          <button class="time-slot {{item.isAvailable ? '' : 'unavailable'}}" bindtap="selectTimeSlot" data-time="{{item.time}}">
+            {{item.time}}
+          </button>
+        </block>
+      </view>
+    </view>
+  </block>
+</view>
+
 <custom-tab-bar></custom-tab-bar>

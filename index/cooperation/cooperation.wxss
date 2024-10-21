@@ -2,3 +2,62 @@
   margin: 30px;
   text-align: center;
 }
+
+.container {
+  padding: 20rpx;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30rpx;
+}
+
+.date-text {
+  font-size: 32rpx;
+  color: #ffffff;
+  background-color: #5c83e0;
+  padding: 10rpx 20rpx;
+  border-radius: 20rpx;
+}
+
+.court-container {
+  margin-bottom: 40rpx;
+  background-color: #ffffff;
+  padding: 20rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.1);
+}
+
+.court-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.location {
+  font-size: 24rpx;
+  color: #777777;
+}
+
+.time-slots {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.time-slot {
+  background-color: #5c83e0;
+  color: #ffffff;
+  border-radius: 30rpx;
+  padding: 10rpx;
+  margin: 5rpx;
+  width: 180rpx;
+  text-align: center;
+  font-size: 24rpx; /* 将字体大小设置为24rpx，原来可能较大 */
+}
+
+
+.unavailable {
+  background-color: #cccccc;
+  color: #777777;
+}
